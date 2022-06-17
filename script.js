@@ -3,29 +3,31 @@ let board=[];
 
 // input data for array board
 function onClick(val,input){
+    let player1 = document.querySelector('#player1').value;
+     let player2 = document.querySelector('#player2').value;
        board[val-1]= input;
        console.log(board);
-       gameResult(0,1,2,'X','Player1 Win');
-       gameResult(3,4,5,'X','Player1 Win');
-       gameResult(6,7,8,'X','Player1 Win');
+       gameResult(0,1,2,'X', player1 + ' Win!');
+       gameResult(3,4,5,'X', player1 + ' Win!');
+       gameResult(6,7,8,'X', player1 + ' Win!');
   
-       gameResult(0,3,6,'X','Player1 Win');
-       gameResult(1,4,7,'X','Player1 Win');
-       gameResult(2,5,8,'X','Player1 Win');
+       gameResult(0,3,6,'X', player1 + ' Win!');
+       gameResult(1,4,7,'X', player1 + ' Win!');
+       gameResult(2,5,8,'X', player1 + ' Win!');
   
-       gameResult(0,4,8,'X','Player1 Win');
-       gameResult(2,4,6,'X','Player1 Win');
+       gameResult(0,4,8,'X', player1 + ' Win!');
+       gameResult(2,4,6,'X', player1 + ' Win!');
 
-       gameResult(0,1,2,'O','Player2 Win');
-       gameResult(3,4,5,'O','Player2 Win');
-       gameResult(6,7,8,'O','Player2 Win');
+       gameResult(0,1,2,'O', player2 + ' Win!');
+       gameResult(3,4,5,'O', player2 + ' Win!');
+       gameResult(6,7,8,'O', player2 + ' Win!');
   
-       gameResult(0,3,6,'O','Player2 Win');
-       gameResult(1,4,7,'O','Player2 Win');
-       gameResult(2,5,8,'O','Player2 Win');
+       gameResult(0,3,6,'O',player2 + ' Win!');
+       gameResult(1,4,7,'O',player2 + ' Win!');
+       gameResult(2,5,8,'O',player2 + ' Win!');
   
-       gameResult(0,4,8,'O','Player2 Win');
-       gameResult(2,4,6,'O','Player2 Win');
+       gameResult(0,4,8,'O',player2 + ' Win!');
+       gameResult(2,4,6,'O',player2 + ' Win!');
        
     }
    
@@ -43,9 +45,15 @@ const doMove = move();
 
 // event for every grid
 const makeFunction = function(num){
-    const grid1 = document.querySelector(`.grid${num}`);
-    grid1.addEventListener('click',function(){
+    //const grid = document.querySelector(`.grid${num}`);
+    const gridNew = document.createElement('div');
+    gridNew.classList.add(`.grid${num}`);
+    let container = document.querySelector('.container');
+    container.appendChild(gridNew);
+
+    gridNew.addEventListener('click',function(){
         doMove();
+        
         if ( gameMove % 2 === 0){
             this.textContent='O';
             onClick(num,'O');
@@ -68,8 +76,22 @@ const makeFunction = function(num){
             
     },{once:true});
 }
-for(let i=0; i<9; i++){
-    makeFunction(i+1);}
+//start game function
+
+
+const startGame = function(){
+    
+    for(let i=0; i<9; i++){
+        makeFunction(i+1);}
+        console.log('clicked');
+     let inputName =  document.querySelector('.input-name');
+     
+    };
+    
+const startButton = document.querySelector('.start-game');
+startButton.addEventListener('click',startGame,{once: true});
+
+
 
    console.log(board[0]);
    const winDec = document.createElement('div');
@@ -88,24 +110,8 @@ gameResult = function(a,b,c,cont,winner){
 
 console.log(winDec.textContent);
 
-//function to restart (undone)
-const restart = function() {
-const playAgain = document.createElement('button');
-playAgain.textContent = 'Play Again';
-winDec.appendChild(playAgain);
-playAgain.addEventListener('click',function(){
-refreshGame();
-},{once:true})
-
-const refreshGame = function(){
-    for (let j=1; j< 10; j++){
-        const grid1 = document.querySelector(`.grid${j}`);
-        grid1.textContent= '';
-}   board = [];
-    gameMove = 0;
-
-}
-}
-
-// make game result only declared once 
-// make refresh game function
+// reload
+let reload = document.querySelector('.reload');
+reload.addEventListener('click',function(){
+    location.reload();
+})
